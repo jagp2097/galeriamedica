@@ -1,0 +1,179 @@
+#loading {
+  width:100%;
+  height:100%;
+  background-color:#ccc;
+  display:block;
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  z-index:10000;
+}
+
+#loading p{
+  position: absolute;
+  top: 40%;
+  left:50%;
+  left:0;
+  right:0; 
+  margin: auto;
+}
+/*-----------------------------------*/
+.contArchivos {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+  background-color: rgba(0,0,0,.7);
+}
+
+.contArchivos:hover .overlay {
+  opacity: 1;
+}
+
+.icon {
+  color: white;
+  font-size: 3em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------*/
+
+#main{
+	position:fixed;
+	height:100%;
+	width:100%;
+}
+
+#ssBusquedaFoto{
+	left:50px;
+	right:50px;
+	margin-top:10px;
+	width:30px;
+}
+/*/////////////////////////////////////////////////////////////////////////////////////////*/
+.divFecha {
+  margin:1px;
+  border: 2px solid #fff;
+    box-shadow: 0 0 1px #666;
+}
+
+.divFecha p {
+  font-weight: 600;
+  margin:5px;
+}
+
+.contFotos {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.tilesImg{
+  list-style-type: none;
+    position: relative; /** Needed to ensure items are laid out relative to this container **/
+    margin: 0;
+    padding: 0;
+}
+
+.tilesImg li {
+  width: 200px;
+  display: none; /** Hide items initially to avoid a flicker effect **/
+  cursor: pointer;
+  padding: 5px;
+  float: left;
+}
+
+.tilesImg li.inactive {
+  visibility: hidden;
+  opacity: 0;
+}
+ 
+.tilesImg li img {
+  display: block;
+    width: 100%;
+    height: auto;
+}
+/*-----------------------------------------------------------------------------------*/
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 76px;
+  bottom: 0;
+  height: inherit;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*.gallery {
+  padding: 0;
+  margin: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  /*justify-content: center;/
+  /*background-color: #d4d4d4;/
+}
+
+.gallery > div {
+  /*background-color: #eaeaea;/
+  /*padding: 16px;/
+  margin: 2px; 
+  flex: 1 1 240px;
+  width: 240px;
+  max-width: 240px;
+  /*box-shadow: 0 -2px 2px #ddd;/
+}
+
+.gallery img {
+  max-width: 200px;
+  width: 200px;
+  transition: all 1s;
+  border: 2px solid #fff;
+  box-shadow: 0 0 2px #666;
+}
+
+.gallery video {
+  max-width: 200px;
+  width: 200px;
+  transition: all 1s;
+  border: 2px solid #fff;
+  box-shadow: 0 0 2px #666;
+}*/
+
+/***************************************************************************************************************/

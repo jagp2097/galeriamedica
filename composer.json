@@ -10,7 +10,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "spatie/laravel-permission": "^2.12"
+        "fzaninotto/faker": "^1.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

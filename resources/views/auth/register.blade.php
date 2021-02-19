@@ -6,6 +6,11 @@
   <div class="col-md-5 col-md-offset-5 container my-3">
     <div class="card" style="width:100%;">
       <h2 class="mt-3 text-center">Registrarse</h2>
+      @if($errors)
+        @foreach($errors->all() as $message)
+          <small class="text-danger"><strong>{{$message}}</strong></small>
+        @endforeach
+      @endif
         <div class="card-body mb-2">
         <form method="POST" action="{{route(('register'))}}">
           @csrf

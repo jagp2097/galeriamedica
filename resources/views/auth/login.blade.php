@@ -7,7 +7,8 @@
     <div class="card text-center" style="width:100%;">
       <h2 class="mt-4">Iniciar Sesión</h2>
       <div class="card-body m-1">
-
+        <h5>Usuario: demo-proyecto</h5>
+        <h5>Contraseña: admin</h5>        
         <form method="POST" action="{{route(('login'))}}">
         @csrf
         <div class="container text-center">

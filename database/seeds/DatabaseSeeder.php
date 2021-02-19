@@ -12,5 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(PacientesTableSedder::class);
+        $this->call(UsersTableSeeder::class);
+        // 'type' => $faker->randomElement(['Admin', 'Usuario']),
     }
 }

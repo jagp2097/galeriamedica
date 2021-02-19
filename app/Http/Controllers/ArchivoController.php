@@ -54,7 +54,7 @@ class ArchivoController extends Controller
         if ($request->hasFile('archivo')) {
             $archForm = $request->file('archivo');
             $referenciaFoto = time().$archForm->getClientOriginalName();
-            $archForm->move(public_path().'/imagenes/', $referenciaFoto);
+            $archForm->move(public_path().'/pacientes', $referenciaFoto);
         }
 
         $archivo->nombre_foto = $request->input('nombreArchivo');
@@ -107,7 +107,7 @@ class ArchivoController extends Controller
 
     public function download(Request $request)
     {
-        $path = public_path('imagenes/').$request->ref;
+        $path = public_path('pacientes').$request->ref;
         //return $path;   
         return response()->download($path);
     }
@@ -160,10 +160,10 @@ class ArchivoController extends Controller
     public function destroy(Archivo $archivo)
     {
         $this->authorize('delete', $archivo);
-        if(\File::exists(public_path('imagenes/')).$archivo->ref_foto){
+        if(\File::exists(public_path('pacientes')).$archivo->ref_foto){
 
-           \File::delete(public_path('imagenes/')).$archivo->ref_foto;
-            //return public_path('imagenes/').$archivo->ref_foto;
+           \File::delete(public_path('pacientes')).$archivo->ref_foto;
+            //return public_path('pacientes').$archivo->ref_foto;
         }
         $archivo->delete();
         return redirect()->to(route('album.show', ['id' => $archivo -> album_id] ))->with('status', 'Archivo eliminado con éxito');

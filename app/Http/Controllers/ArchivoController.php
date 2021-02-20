@@ -49,7 +49,6 @@ class ArchivoController extends Controller
     public function store(ArchivosRequest $request)
     {
         $this->authorize('create', Archivo::class);
-        dd($request->file('archivo')->getClientMimeType());
         $archivo = new Archivo();
         if ($request->hasFile('archivo')) {
             $archForm = $request->file('archivo');

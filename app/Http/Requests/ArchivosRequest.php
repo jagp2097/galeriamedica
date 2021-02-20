@@ -26,7 +26,7 @@ class ArchivosRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-      //dd($request->all());
+      // dd($request->file('archivo')->getErrorMessage());
       $rules = [
           'nombreArchivo' => array(
             'required',
@@ -38,8 +38,7 @@ class ArchivosRequest extends FormRequest
           'patologiaOtro' => 'required_if:patologia,==,Otro',
           'region' => 'required',
           'periodo' => 'required',
-          'tipoArchivo' => 'required',
-          'archivo' => 'required|mimes:jpeg,bmp,png,mp4,avi,mpeg,quicktime', 
+          'archivo' => 'required|mimetypes:image/jpeg,image/png,video/mp4,video/mpeg,video/quicktime',
          ];
 
           return $rules;

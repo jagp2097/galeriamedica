@@ -74,7 +74,7 @@
 				@if ($tipo == "Foto")
 				<li>
 					<div class="contArchivos">
-						<img src="{{asset('pacientes/')}}/{{$ref}}">
+						<img src="{{asset('storage/pacientes/')}}/{{$ref}}">
 						<div class="overlay">
 					    <a href="#{{$id}}" class="icon" title="Clic para ver información" style="text-decoration:none">
 					      <i class="fa fa-file-photo-o"></i>
@@ -86,7 +86,7 @@
 				<li>
 					<div class="contArchivos">
 						<video class="img-fluid"> 
-							<source src="{{asset('pacientes/')}}/{{$ref}}">
+							<source src="{{asset('storage/pacientes/')}}/{{$ref}}">
 						</video>
 						<div class="overlay">
 					   <a href="#{{$id}}" class="icon" title="Clic para ver información">

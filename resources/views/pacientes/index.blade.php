@@ -22,6 +22,9 @@
 				<input id="bMes" name="mes">
 				<a id="ssBusquedaFoto" style="width:50%"></a>
 			</form>
+
+			<a class="easyui-linkbutton mt-2 mb-2" href="{{ url('/') }}" data-options="iconCls:'icon-man'">Listar pacientes</a>
+
 			@can('create', galeriamedica\Paciente::class)
 				<a class="easyui-linkbutton mt-2 mb-2" href="{{ route('paciente.create') }}" data-options="iconCls:'icon-add'">Agregar paciente</a>
 			@endcan
@@ -60,7 +63,7 @@
 				<div class="col-md-2 mb-2">
 					@if($archivo->tipo_archivo == 'Foto')
 					<div class="contArchivos">
-						<a href="#{{$archivo->id}}"><img class="img-fluid" src="{{asset('imagenes/')}}/{{$archivo->ref_foto}}"></a>
+						<a href="#{{$archivo->id}}"><img class="img-fluid" src="{{asset('storage/pacientes')}}/{{$archivo->ref_foto}}"></a>
 						<div class="overlay">
 					  	<a href="#{{$archivo->id}}" class="icon" style="text-decoration:none"><i class="fa fa-file-photo-o"></i></a>
 					  </div>
@@ -69,7 +72,7 @@
 					<div class="contArchivos">
 						<a href="#{{$archivo->id}}">
 							<video class="img-fluid"> 
-								<source src="{{asset('imagenes/')}}/{{$archivo->ref_foto}}">
+								<source src="{{asset('storage/pacientes')}}/{{$archivo->ref_foto}}">
 							</video>
 						</a>
 						<div class="overlay">
@@ -86,9 +89,9 @@
 						<div class="col-md-6 mt-2">
 						@if($archivo->tipo_archivo == 'Foto')
 							<div class="contArchivos">
-								<a><img class="img-fluid" src="{{asset('imagenes/')}}/{{$archivo->ref_foto}}"></a>
+								<a><img class="img-fluid" src="{{asset('storage/pacientes')}}/{{$archivo->ref_foto}}"></a>
 								<div class="overlay">
-									<a class="image-link icon" href="{{asset('imagenes/')}}/{{$archivo->ref_foto}}">
+									<a class="image-link icon" href="{{asset('storage/pacientes')}}/{{$archivo->ref_foto}}">
 										<i data-remodal-action="confirm" class="fa fa-expand"></i>
 									</a>
 								</div>
@@ -98,11 +101,11 @@
 							<div class="contArchivos">
 								<a>
 									<video class="img-fluid"> 
-										<source src="{{asset('imagenes/')}}/{{$archivo->ref_foto}}">
+										<source src="{{asset('storage/pacientes')}}/{{$archivo->ref_foto}}">
 									</video>
 								</a>
 								<div class="overlay">
-									<a class="video-link icon" href="{{asset('imagenes/')}}/{{$archivo->ref_foto}}">
+									<a class="video-link icon" href="{{asset('storage/pacientes')}}/{{$archivo->ref_foto}}">
 										<i data-remodal-action="confirm" class="fa fa-expand"></i>
 									</a>
 								</div>

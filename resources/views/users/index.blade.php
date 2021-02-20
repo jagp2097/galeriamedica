@@ -35,7 +35,7 @@
 		<table class="w3-table-all w3-hoverable w3-centered">
 		<thead>
 			<tr>
-					<th style="width:1%"></th>
+				<th style="width:1%"></th>
 			    <th>Nombre</th>
 			    <th>Nombre de usuario</th>
 			    <th>E-mail</th>

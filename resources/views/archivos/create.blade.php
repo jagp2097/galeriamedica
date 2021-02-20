@@ -81,13 +81,6 @@
 							@endforeach
 						@endif
 
-						<input class="ccArchivo" name="tipoArchivo" style="width:180px;">
-						
-						@if($errors->errorsArchivos->has('tipoArchivo'))
-							@foreach($errors->errorsArchivos->get('tipoArchivo') as $error)
-								<small class="text-danger"><strong>{{$error}}</strong></small>
-							@endforeach
-						@endif
 
 						<input id="filebox" name="archivo" style="width:550px;max-width:200px"">
 						@if($errors->errorsArchivos->has('archivo'))

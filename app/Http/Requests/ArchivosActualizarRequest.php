@@ -39,7 +39,7 @@ class ArchivosActualizarRequest extends FormRequest
              'patologiaOtro' => 'required_if:patologia,==,Otro',
              'region' => 'required',
              'periodo' => 'required',
-             'tipo_archivo' => 'required',
+            //  'tipo_archivo' => 'required',
         ];
 
         return $rules;

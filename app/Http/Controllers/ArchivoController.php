@@ -49,12 +49,28 @@ class ArchivoController extends Controller
     public function store(ArchivosRequest $request)
     {
         $this->authorize('create', Archivo::class);
-        //dd($request->all());
+        dd($request->file('archivo')->getClientMimeType());
         $archivo = new Archivo();
         if ($request->hasFile('archivo')) {
             $archForm = $request->file('archivo');
             $referenciaFoto = time().$archForm->getClientOriginalName();
-            $archForm->move(public_path().'/pacientes', $referenciaFoto);
+
+            $path = Storage::putFileAs(
+                'public/pacientes', // path to store
+                $archForm, // file
+                $referenciaFoto // filename as store
+            );
+
+            if (str_contains($archForm->getClientMimeType(), 'image/')) {
+                
+                $archivo->tipo_archivo = "Foto";
+            
+            } else if (str_contains($archForm->getClientMimeType(), 'video/')) {
+
+                $archivo->tipo_archivo = "Video";
+
+            }
+
         }
 
         $archivo->nombre_foto = $request->input('nombreArchivo');
@@ -83,7 +99,6 @@ class ArchivoController extends Controller
         }
         
         $archivo->region = $request->input('region');
-        $archivo->tipo_archivo = $request->input('tipoArchivo');
         $archivo->periodo = $request->input('periodo');
 
         $archivo->save();
@@ -107,7 +122,7 @@ class ArchivoController extends Controller
 
     public function download(Request $request)
     {
-        $path = public_path('pacientes').$request->ref;
+        $path = public_path('storage/pacientes/').$request->ref;
         //return $path;   
         return response()->download($path);
     }
@@ -141,7 +156,7 @@ class ArchivoController extends Controller
       $archivo->diagnostico = $request->diagnostico;
       $archivo->region = $request->region;
       $archivo->periodo = $request->periodo;
-      $archivo->tipo_archivo = $request->tipo_archivo;
+    //   $archivo->tipo_archivo = $request->tipo_archivo;
       $archivo->save();
       return response()->json(
         ["men" => 'listo']
@@ -160,12 +175,9 @@ class ArchivoController extends Controller
     public function destroy(Archivo $archivo)
     {
         $this->authorize('delete', $archivo);
-        if(\File::exists(public_path('pacientes')).$archivo->ref_foto){
+        Storage::delete($archivo->ref_foto);
 
-           \File::delete(public_path('pacientes')).$archivo->ref_foto;
-            //return public_path('pacientes').$archivo->ref_foto;
-        }
-        $archivo->delete();
+        $archivo->delete($archivo->id);
         return redirect()->to(route('album.show', ['id' => $archivo -> album_id] ))->with('status', 'Archivo eliminado con éxito');
     }
 }

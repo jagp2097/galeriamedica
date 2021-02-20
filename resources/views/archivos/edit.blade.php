@@ -41,8 +41,8 @@
 						<input id="periodo" class="ccPeriodo" name="periodo" style="width:180px;">
 						<small class="text-danger"><strong id="Eperiodo"></strong></small>
 
-						<input id="tipoArchivo" class="ccArchivo" name="tipoArchivo">
-						<small class="text-danger"><strong id="EtipoArchivo"></strong></small>
+						{{-- <input id="tipoArchivo" class="ccArchivo" name="tipoArchivo">
+						<small class="text-danger"><strong id="EtipoArchivo"></strong></small> --}}
 
 						<input id="id" type="hidden" name="id">
 

@@ -5,10 +5,10 @@
 		@if($tipo == 'Foto')
 			<div class="contArchivos">
 				<a>
-					<img class="img-fluid img-thumbnail" src="{{asset('pacientes/')}}/{{$ref}}">
+					<img class="img-fluid img-thumbnail" src="{{asset('storage/pacientes/')}}/{{$ref}}">
 				</a>
 				<div class="overlay">
-					<a class="image-link icon" href="{{asset('pacientes/')}}/{{$ref}}">
+					<a class="image-link icon" href="{{asset('storage/pacientes/')}}/{{$ref}}">
 						<i data-remodal-action="confirm" class="fa fa-expand"></i>
 					</a>
 				</div>
@@ -17,11 +17,11 @@
 			<div class="contArchivos">
 				<a>
 					<video class="img-fluid"> 
-						<source src="{{asset('pacientes/')}}/{{$ref}}">
+						<source src="{{asset('storage/pacientes/')}}/{{$ref}}">
 					</video>
 				</a>
 				<div class="overlay">
-					<a class="video-link icon" href="{{asset('pacientes/')}}/{{$ref}}">
+					<a class="video-link icon" href="{{asset('storage/pacientes/')}}/{{$ref}}">
 						<i data-remodal-action="confirm" class="fa fa-expand"></i>
 					</a>
 				</div>

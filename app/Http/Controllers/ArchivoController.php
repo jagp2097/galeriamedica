@@ -2,12 +2,13 @@
 
 namespace galeriamedica\Http\Controllers;
 
+use Validator;
 use galeriamedica\Archivo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Facades\Storage;
 use galeriamedica\Http\Requests\ArchivosRequest;
 use galeriamedica\Http\Requests\ArchivosActualizarRequest;
-use Validator;
 
 class ArchivoController extends Controller
 {
@@ -54,11 +55,7 @@ class ArchivoController extends Controller
             $archForm = $request->file('archivo');
             $referenciaFoto = time().$archForm->getClientOriginalName();
 
-            $path = Storage::putFileAs(
-                'public/pacientes', // path to store
-                $archForm, // file
-                $referenciaFoto // filename as store
-            );
+            $archForm->move(public_path().'/pacientes/', $referenciaFoto);
 
             if (str_contains($archForm->getClientMimeType(), 'image/')) {
                 
@@ -121,7 +118,7 @@ class ArchivoController extends Controller
 
     public function download(Request $request)
     {
-        $path = public_path('storage/pacientes/').$request->ref;
+        $path = public_path('pacientes/').$request->ref;
         //return $path;   
         return response()->download($path);
     }
@@ -174,7 +171,13 @@ class ArchivoController extends Controller
     public function destroy(Archivo $archivo)
     {
         $this->authorize('delete', $archivo);
-        Storage::delete($archivo->ref_foto);
+        // Storage::delete($archivo->ref_foto);
+        if(File::exists(public_path('pacientes/').$archivo->ref_foto)){
+
+            File::delete(public_path('pacientes/').$archivo->ref_foto);
+            // return public_path('pacientes/').$archivo->ref_foto;
+
+         }
 
         $archivo->delete($archivo->id);
         return redirect()->to(route('album.show', ['id' => $archivo -> album_id] ))->with('status', 'Archivo eliminado con éxito');

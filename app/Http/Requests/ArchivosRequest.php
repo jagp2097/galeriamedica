@@ -38,9 +38,16 @@ class ArchivosRequest extends FormRequest
           'patologiaOtro' => 'required_if:patologia,==,Otro',
           'region' => 'required',
           'periodo' => 'required',
-          'archivo' => 'required|mimetypes:image/jpeg,image/png,video/mp4,video/mpeg,video/quicktime',
+          'archivo' => 'required|mimetypes:image/jpeg,image/png,video/mp4|max:10240',
          ];
 
           return $rules;
+    }
+
+    public function messages()
+    {
+        return [
+            'archivo.max' => 'El tamaño máximo del archivo es de 10MB (10240 KB)'
+        ];
     }
 }

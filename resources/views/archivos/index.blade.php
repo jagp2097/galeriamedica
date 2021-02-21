@@ -86,7 +86,7 @@
 				<li>
 					<div class="contArchivos">
 						<video class="img-fluid"> 
-							<source src="{{asset('storage/pacientes/')}}/{{$ref}}">
+							<source src="{{asset('storage/pacientes/')}}/{{$ref}}" type="video/mp4">
 						</video>
 						<div class="overlay">
 					   <a href="#{{$id}}" class="icon" title="Clic para ver información">

@@ -5,6 +5,8 @@ namespace galeriamedica\Http\Controllers;
 use Validator;
 use galeriamedica\Archivo;
 use Illuminate\Http\Request;
+use Cloudinary\Api\Admin\AdminApi;
+use Cloudinary\Api\Upload\UploadApi;
 use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Facades\Storage;
 use galeriamedica\Http\Requests\ArchivosRequest;
@@ -51,19 +53,47 @@ class ArchivoController extends Controller
     {
         $this->authorize('create', Archivo::class);
         $archivo = new Archivo();
+        
         if ($request->hasFile('archivo')) {
+           
             $archForm = $request->file('archivo');
-            $referenciaFoto = time().$archForm->getClientOriginalName();
+           
+            $referenciaFoto = time();
 
             $archForm->move(public_path().'/pacientes/', $referenciaFoto);
 
+            $upload = new UploadApi();
+
             if (str_contains($archForm->getClientMimeType(), 'image/')) {
                 
+                $uploadResponse = $upload->upload(public_path().'/pacientes/'.$referenciaFoto, [
+                    'folder' => 'pacientes/',
+                ]);
+                
+                $uploadResponse = json_encode($uploadResponse);
+                $uploadResponse = json_decode($uploadResponse);
+
+                File::delete(public_path('pacientes/').$referenciaFoto);
+
                 $archivo->tipo_archivo = "Foto";
+                $archivo->public_id = $uploadResponse->public_id;
+                $archivo->ref_foto = $uploadResponse->url;
             
             } else if (str_contains($archForm->getClientMimeType(), 'video/')) {
 
+                $uploadResponse = $upload->upload(public_path().'/pacientes/'.$referenciaFoto, [
+                    'folder' => 'pacientes/',
+                    'resource_type' => 'video'
+                ]);
+                
+                $uploadResponse = json_encode($uploadResponse);
+                $uploadResponse = json_decode($uploadResponse);
+
+                File::delete(public_path('pacientes/').$referenciaFoto);
+
                 $archivo->tipo_archivo = "Video";
+                $archivo->public_id = $uploadResponse->public_id;
+                $archivo->ref_foto = $uploadResponse->url;
 
             }
 
@@ -71,7 +101,6 @@ class ArchivoController extends Controller
 
         $archivo->nombre_foto = $request->input('nombreArchivo');
         $archivo->album_id = $request->input('id');
-        $archivo->ref_foto = $referenciaFoto;
 
         if ($request->input('patologia') == 'Otro' ) {
             
@@ -98,10 +127,9 @@ class ArchivoController extends Controller
         $archivo->periodo = $request->input('periodo');
 
         $archivo->save();
+
         return redirect()->to(route('album.show', ['id' => $request->id] ))->with('status', 'Archivo agregado con éxito');
-        //dd($request->all());
-        //dd($archivo);
-        //return $request;
+
     }
 
     /**
@@ -118,9 +146,11 @@ class ArchivoController extends Controller
 
     public function download(Request $request)
     {
-        $path = public_path('pacientes/').$request->ref;
-        //return $path;   
-        return response()->download($path);
+        $filename = $request->nombre;
+        $tempfile = tempnam(sys_get_temp_dir(), $filename);
+        copy($request->ref, $tempfile);
+
+        return response()->download($tempfile, $filename);
     }
 
     /**
@@ -157,9 +187,7 @@ class ArchivoController extends Controller
       return response()->json(
         ["men" => 'listo']
       );
-      /*return redirect()->to(route('album.show', ['id' => $archivo->album_id]))->with('status', 'Información del archivo actualizada con éxito');*/
-      //dd($request->all());
-      //return $request; 
+
     }
 
     /**
@@ -171,15 +199,23 @@ class ArchivoController extends Controller
     public function destroy(Archivo $archivo)
     {
         $this->authorize('delete', $archivo);
-        // Storage::delete($archivo->ref_foto);
-        if(File::exists(public_path('pacientes/').$archivo->ref_foto)){
 
-            File::delete(public_path('pacientes/').$archivo->ref_foto);
-            // return public_path('pacientes/').$archivo->ref_foto;
+        $adminApi = new AdminApi();
 
-         }
+        if ($archivo->tipo_archivo === "Foto") {
+            $adminApi->deleteAssets([ $archivo->public_id ], [
+                'resource_type' => 'image',
+                'type' => 'upload'
+            ]);
+        } else {
+            $adminApi->deleteAssets([ $archivo->public_id ], [
+                'resource_type' => 'video',
+                'type' => 'upload'
+            ]);
+        }
 
         $archivo->delete($archivo->id);
+
         return redirect()->to(route('album.show', ['id' => $archivo -> album_id] ))->with('status', 'Archivo eliminado con éxito');
     }
 }

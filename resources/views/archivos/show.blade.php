@@ -5,10 +5,10 @@
 		@if($tipo == 'Foto')
 			<div class="contArchivos">
 				<a>
-					<img class="img-fluid img-thumbnail" src="{{asset('pacientes/')}}/{{$ref}}">
+					<img class="img-fluid img-thumbnail" src="{{ $ref }}">
 				</a>
 				<div class="overlay">
-					<a class="image-link icon" href="{{asset('pacientes/')}}/{{$ref}}">
+					<a class="image-link icon" href="{{ $ref }}">
 						<i data-remodal-action="confirm" class="fa fa-expand"></i>
 					</a>
 				</div>
@@ -17,11 +17,11 @@
 			<div class="contArchivos">
 				<a>
 					<video class="img-fluid"> 
-						<source src="{{asset('pacientes/')}}/{{$ref}}">
+						<source src="{{ $ref }}">
 					</video>
 				</a>
 				<div class="overlay">
-					<a class="video-link icon" href="{{asset('pacientes/')}}/{{$ref}}">
+					<a class="video-link icon" href="{{ $ref }}">
 						<i data-remodal-action="confirm" class="fa fa-expand"></i>
 					</a>
 				</div>
@@ -45,7 +45,7 @@
 			<label><strong>Tipo de archivo:</strong> {{$tipo}}</label><br>
 			<label><strong>Álbum:</strong> {{$album->nombre_album}}</label><br>
 			<label><strong>Creado:</strong> {{$soloFecha}}</label><br>
-			<a class="easyui-linkbutton" href="{{ route('archivo.download', ['ref' => $ref]) }}">Descargar</a>
+			<a class="easyui-linkbutton" href="{{ route('archivo.download', ['ref' => $ref, 'nombre' => $nomFoto]) }}">Descargar</a>
 		</div>
 		</div>
 </div>
